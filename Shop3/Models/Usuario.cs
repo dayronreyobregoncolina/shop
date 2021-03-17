@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Shop3.Models
 {
-    public class Usuario : IdentityUser<Guid>
+    public class Usuario : IdentityUser
     {
         public string Nombre { get; set; }
         public string Apellidos { get; set; }

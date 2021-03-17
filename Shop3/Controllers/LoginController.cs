@@ -50,9 +50,6 @@ namespace Shop3.Controllers
 
                 if (isCorrect)
                 {
-
-                    //var asdarols = await _userManager.AddToRoleAsync(existingUser, "ADMINISTRADOR");
-
                     return await generateJwtAsync(existingUser);
                 }
             }
@@ -68,6 +65,7 @@ namespace Shop3.Controllers
                  new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), /* Insert user id here */
                  new Claim(JwtRegisteredClaimNames.Email, existingUser.Email),
                  new Claim(JwtRegisteredClaimNames.Sub, existingUser.UserName),
+                 new Claim("UserId",existingUser.Id)
              };
 
             var roles = await _userManager.GetRolesAsync(existingUser);
@@ -78,7 +76,7 @@ namespace Shop3.Controllers
            (
                claims: claims,
                signingCredentials: creds,
-               expires: DateTime.Now.AddMinutes(50), /* Token expire time */
+               expires: DateTime.Now.AddDays(30), /* Token expire time */
                issuer: _config["Jwt:Issuer"],
                audience: _config["Jwt:Audience"]
            );
